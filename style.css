@@ -1,0 +1,95 @@
+* {
+    margin: 0 auto;
+    padding: 0 auto;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 95%;
+}
+
+#input {
+    display: flex;
+    width: 95%;
+    margin: 5px auto;
+}
+
+input {
+    width: 80%;
+    height: 50px;
+    border: 2px solid #ddd;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    padding: 0px 15px;
+}
+
+.btn {
+    border-radius: 5px;
+    padding: 8px 15px;
+    background-color: rgb(5, 218, 136);
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#clear {
+    text-align: center;
+}
+
+.item {
+    width: 25%;
+    display: flex;
+    align-items: center;
+}
+
+.item span:nth-child(1),
+.item span:nth-child(2) {
+    padding: 0 5px;
+    text-align: center;
+    display: inline-block;
+    width:50%;
+}
+
+.item span:nth-child(1) {
+    font-size: 20px;
+    color: green;
+}
+
+ul {
+    margin-bottom: 10px;
+    width: 100%;
+    padding-inline-start: 0;
+    padding: 0 13px;
+}
+
+li {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.text {
+    width: 70%;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+.text.del {
+    color: red;
+}
+
+.none {
+    display: none;
+}
+
+.block {
+    display: block;
+}
