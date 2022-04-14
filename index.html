@@ -13,14 +13,15 @@
     <div class="container">
         <div id="input">
             <input type="text" placeholder="Aggiungi articoli....">
-            <button class="btn" onclick="shoppingList.addItem()">Aggiungi</button>
+            <button class="btn" id="add">Aggiungi</button>
         </div class="row">
 
         <ul></ul>
 
-        <div id="clear">
-            <button class="btn" onclick="shoppingList.clearList()">Svuota la lista</button>
-        </div>
+        <footer>
+            <button class="btn" onclick="shoppingList.clearList()">Svuota Lista</button>
+            <button class="btn recover none" onclick="shoppingList.recoverList()">Recupera Lista</button>
+        </footer>
     </div>
     <script src="script.js"></script>
 </body>

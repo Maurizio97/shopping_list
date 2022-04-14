@@ -33,10 +33,7 @@ input {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-}
-
-#clear {
-    text-align: center;
+    cursor: pointer;
 }
 
 .item {
@@ -92,4 +89,9 @@ li {
 
 .block {
     display: block;
+}
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
 }

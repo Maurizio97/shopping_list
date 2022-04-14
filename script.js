@@ -3,6 +3,7 @@ const $ = document.querySelector.bind(document);
 class ShoppingList {
 
     items     = [];
+    lastItems = [];
 
     constructor() {
         this.items = JSON.parse(localStorage.getItem('list')) || [];
@@ -18,7 +19,7 @@ class ShoppingList {
             if (item.mark === false) {
                 $('ul').innerHTML +=
                 `<li>
-                    <span class="text">${item.text}</span>
+                    <span class="text">${this.sanitize(item.text)}</span>
                     <div class="item">
                         <span  class="delete" onclick="shoppingList.mark(${item.id})">&#10004;</span>
                         <span onclick="shoppingList.delete(${item.id})" class="delete">&#10060</span>
@@ -26,11 +27,12 @@ class ShoppingList {
                 </li>`;
             }
         });
+
         this.items.forEach(item => {
             if (item.mark === true) {
                 $('ul').innerHTML +=
                 `<li>
-                   <span class="text del"><del>${item.text}</del></span>
+                   <span class="text del"><del>${this.sanitize(item.text)}</del></span>
                     <div class="item">
                         <span  class="delete" onclick="shoppingList.mark(${item.id})">&#10004;</span>
                         <span onclick="shoppingList.delete(${item.id})" class="delete">&#10060</span>
@@ -38,17 +40,21 @@ class ShoppingList {
                 </li>`;
             }
         });
+
+        !this.items.length ? $('.recover').classList.remove('none'): $('.recover').classList.add('none');
     }
 
 
     /** Add item in list. */
 
-    addItem() {
-        const val = $('input').value;
-        this.items.push({id: Date.now(), text: val, mark: false});
-        localStorage.setItem('list', JSON.stringify(this.items));
+    addItem(val) {
+        val = val.replace(/\s+/g, ' ').trim();
+        if(val.length){
+            this.items.push({id: Date.now(), text: val, mark: false});
+            localStorage.setItem('list', JSON.stringify(this.items));
+            this.printData();
+        }
         $('input').value = '';
-        this.printData();
     }
 
 
@@ -66,30 +72,55 @@ class ShoppingList {
     mark(id) {
         let index = this.items.findIndex((item => item.id === id));
         this.items[index].mark? this.items[index].mark = false : this.items[index].mark = true;
-        localStorage.setItem('mark', JSON.stringify(this.marks));
         this.printData();
     }
 
 
-    /** Clear List. */
+    /** Clear List and Save the last list */
 
     clearList() {
-        this.lastItems = this.items;
-        localStorage.clear('list');
-        this.items = JSON.parse(localStorage.getItem('list')) || [];
+        if (this.items.length) {
+            this.lastItems = this.items;
+            localStorage.setItem('lastList', JSON.stringify(this.lastItems));
+            localStorage.removeItem('list');
+            this.items = JSON.parse(localStorage.getItem('list')) || [];
+            this.printData();
+        }
+    }
+
+
+    /** Recovers List. */
+
+    recoverList() {
+        console.log(this.lastItems);
+        this.items = this.lastItems;
+        localStorage.setItem('list', JSON.stringify(this.items));
+        this.items = JSON.parse(localStorage.getItem('list'));
         this.printData();
     }
+
+
+    /** Sanitize. */
+
+    sanitize(str) {
+        return str.replace(/[^\w. ]/gi, function (c) {
+            return '&#' + c.charCodeAt(0) + ';';
+        });
+    };
 
 }
 
 const shoppingList = new ShoppingList();
 
 $('input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        shoppingList.addItem()
+    if (this.value.length && e.key === 'Enter') {
+        shoppingList.addItem(this.value);
     }
 });
 
-$('#clear').addEventListener('click', ()=>  {
-    shoppingList.clearList();
+$('#add').addEventListener('click', function() {
+    let val = $('input').value;
+    if (val.length) {
+        shoppingList.addItem(val);
+    }
 });
