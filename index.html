@@ -13,16 +13,20 @@
     <div class="container">
         <div id="input">
             <input type="text" placeholder="Aggiungi articoli....">
-            <button class="btn" id="add">Aggiungi</button>
+            <!-- <button class="btn" id="add">Aggiungi</button> -->
         </div class="row">
 
         <ul></ul>
 
         <footer>
-            <button class="btn" onclick="shoppingList.clearList()">Svuota Lista</button>
+            <button class="btn clear" onclick="shoppingList.clearList()">Svuota Lista</button>
             <button class="btn recover none" onclick="shoppingList.recoverList()">Recupera Lista</button>
         </footer>
+
+        <div id="modal" class="modal"></div>
     </div>
+
+
     <script src="script.js"></script>
 </body>
 

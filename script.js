@@ -6,6 +6,7 @@ class ShoppingList {
     lastItems = [];
 
     constructor() {
+        this.modal();
         this.items = JSON.parse(localStorage.getItem('list')) || [];
         this.printData();
     }
@@ -42,6 +43,7 @@ class ShoppingList {
         });
 
         !this.items.length ? $('.recover').classList.remove('none'): $('.recover').classList.add('none');
+        this.items.length ? $('.clear').classList.remove('none'): $('.clear').classList.add('none');
     }
 
 
@@ -92,7 +94,6 @@ class ShoppingList {
     /** Recovers List. */
 
     recoverList() {
-        console.log(this.lastItems);
         this.items = this.lastItems;
         localStorage.setItem('list', JSON.stringify(this.items));
         this.items = JSON.parse(localStorage.getItem('list'));
@@ -106,6 +107,14 @@ class ShoppingList {
         return str.replace(/[^\w. ]/gi, function (c) {
             return '&#' + c.charCodeAt(0) + ';';
         });
+    };
+
+
+    /** Modal. */
+
+    modal() {
+        $('#modal').innerHTML = '<object data="modal.html" >';
+        console.log('ciao');
     };
 
 }
