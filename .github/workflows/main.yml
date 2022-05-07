@@ -11,6 +11,6 @@ jobs:
       - name: Sincronizza files
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          server: ${{ secrets.server }}
-          username: ${{ secrets.username }}
-          password: ${{ secrets.password }}
+          server: ${{ secrets.server_list }}
+          username: ${{ secrets.username_list }}
+          password: ${{ secrets.password_list }}
